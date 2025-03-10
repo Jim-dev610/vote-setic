@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vote en cours...</title>
+</head>
+<body>
+
+    <p>Votre vote est en cours...</p>
+
+    <script>
+        fetch("https://vote-prix-ulysse.fr/wp-admin/admin-ajax.php", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded",
+                "User-Agent": navigator.userAgent,
+                "Referer": "https://vote-prix-ulysse.fr/",
+                "Origin": "https://vote-prix-ulysse.fr"
+            },
+            credentials: "include",
+            body: "action=polls&view=process&poll_id=17&poll_17=46&poll_17_nonce=16c664f681"
+        })
+        .then(response => response.text())
+        .then(result => {
+            // Après le vote, rediriger directement vers la page d'accueil
+            window.location.href = "https://vote-prix-ulysse.fr/";
+        })
+        .catch(error => {
+            console.error("Erreur :", error);
+            // Optionnel : redirection même en cas d'erreur
+            window.location.href = "https://vote-prix-ulysse.fr/";
+        });
+    </script>
+
+</body>
+</html>
